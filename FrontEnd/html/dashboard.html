@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trang chính</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="container wide">
+    <div class="card">
+      <div class="topbar">
+        <h1 style="margin:0">Xin chào, <span id="userName">...</span></h1>
+        <button id="logoutBtn" class="secondary" type="button">Đăng xuất</button>
+      </div>
+      <p><span id="userRole" class="badge"></span> <span id="userEmail"></span></p>
+      <p id="intro"></p>
+
+      <div id="verifyBox" class="notice hidden">
+        <strong>Email của bạn chưa được xác thực.</strong>
+        <button id="resendBtn" class="secondary" type="button">Gửi lại email xác thực</button>
+        <div id="verifyMsg" class="msg"></div>
+      </div>
+
+      <div id="adminBox" class="hidden">
+        <h2>Danh sách người dùng</h2>
+        <table id="userTable">
+          <thead><tr><th>ID</th><th>Họ tên</th><th>Email</th><th>Vai trò</th><th>Email</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="../js/api.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
