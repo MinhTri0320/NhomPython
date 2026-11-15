@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from models.user import User
-from schemas.auth import LoginIn, MessageOut, RefreshIn, TokenOut, UserOut
+from schemas.auth import ChangePasswordIn, LoginIn, MessageOut, RefreshIn, TokenOut, UpdateProfileIn, UserOut
 from services import authService, tokenService
 from services.security import create_access_token
 
@@ -28,3 +28,13 @@ def refresh_session(db: Session, data: RefreshIn, ip: str | None, user_agent: st
 def logout_user(db: Session, data: RefreshIn) -> MessageOut:
     tokenService.revoke_refresh_token(db, data.refresh_token)
     return MessageOut(message="Đã đăng xuất")
+
+
+def change_password_user(db: Session, user: User, data: ChangePasswordIn) -> MessageOut:
+    authService.change_password(db, user, data.old_password, data.new_password)
+    return MessageOut(message="Đổi mật khẩu thành công")
+
+
+def update_user_profile(db: Session, user: User, data: UpdateProfileIn) -> UserOut:
+    updated = authService.update_profile(db, user, data.full_name)
+    return UserOut.from_user(updated)

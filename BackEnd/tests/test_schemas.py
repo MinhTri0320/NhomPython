@@ -2,7 +2,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from schemas.auth import LoginIn, RegisterIn, ResetPasswordIn, UserOut
+from schemas.auth import ChangePasswordIn, LoginIn, RegisterIn, ResetPasswordIn, UpdateProfileIn, UserOut
 
 
 class _FakeRole:
@@ -15,6 +15,9 @@ class _FakeUser:
     full_name = "An"
     role = _FakeRole
     email_verified_at = None
+    is_active = True
+    created_at = None
+    last_login_at = None
 
 
 class SchemaTest(unittest.TestCase):
@@ -41,10 +44,23 @@ class SchemaTest(unittest.TestCase):
         with self.assertRaises(ValidationError):
             ResetPasswordIn(token="t", new_password="123")
 
+    def test_doi_mat_khau_hop_le(self):
+        obj = ChangePasswordIn(old_password="oldpass123", new_password="newpass123")
+        self.assertEqual(obj.new_password, "newpass123")
+
+    def test_doi_mat_khau_qua_ngan(self):
+        with self.assertRaises(ValidationError):
+            ChangePasswordIn(old_password="oldpass123", new_password="short")
+
+    def test_cap_nhat_ho_ten(self):
+        obj = UpdateProfileIn(full_name="Nguyễn Văn B")
+        self.assertEqual(obj.full_name, "Nguyễn Văn B")
+
     def test_user_out_tu_user(self):
         out = UserOut.from_user(_FakeUser)
         self.assertEqual(out.role, "CANDIDATE")
         self.assertFalse(out.email_verified)
+        self.assertTrue(out.is_active)
 
 
 if __name__ == "__main__":

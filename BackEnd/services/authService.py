@@ -1,8 +1,8 @@
-"""Nghiệp vụ đăng ký / đăng nhập (Story 15, 16)."""
+"""Nghiệp vụ đăng ký / đăng nhập (Story 15, 16, 17, 18)."""
 import logging
 from datetime import datetime, timedelta
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -11,6 +11,7 @@ from models.candidateProfile import CandidateProfile
 from models.company import Company
 from models.loginAttempt import LoginAttempt
 from models.role import ADMIN, CANDIDATE, RECRUITER, Role
+from models.token import RefreshToken
 from models.user import User
 from services import tokenService
 from services.errors import AppError
@@ -84,6 +85,28 @@ def authenticate(db: Session, email: str, password: str, ip: str | None) -> User
     user.last_login_at = datetime.now()
     db.add(LoginAttempt(email=email, user_id=user.id, ip_address=ip, is_success=True))
     db.commit()
+    return user
+
+
+def change_password(db: Session, user: User, old_password: str, new_password: str) -> None:
+    """Đổi mật khẩu cho người dùng đang đăng nhập."""
+    if not verify_password(old_password, user.password_hash):
+        raise AppError(400, "Mật khẩu hiện tại không đúng")
+    user.password_hash = hash_password(new_password)
+    # Thu hồi toàn bộ refresh token cũ để buộc đăng nhập lại trên các thiết bị khác
+    db.execute(
+        update(RefreshToken)
+        .where(RefreshToken.user_id == user.id, RefreshToken.revoked_at.is_(None))
+        .values(revoked_at=datetime.now())
+    )
+    db.commit()
+
+
+def update_profile(db: Session, user: User, full_name: str) -> User:
+    """Cập nhật thông tin cơ bản của người dùng."""
+    user.full_name = full_name
+    db.commit()
+    db.refresh(user)
     return user
 
 

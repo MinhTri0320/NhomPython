@@ -1,5 +1,6 @@
-"""Dữ liệu vào / ra của các API xác thực."""
+"""Dữ liệu vào / ra của các API xác thực và phân quyền (Sprint 1)."""
 import re
+from datetime import datetime
 
 from pydantic import BaseModel, field_validator
 
@@ -72,17 +73,50 @@ class ResetPasswordIn(BaseModel):
         return _check_password_length(v)
 
 
+class ChangePasswordIn(BaseModel):
+    old_password: str
+    new_password: str
+
+    @field_validator("new_password")
+    @classmethod
+    def check_new_password(cls, v: str) -> str:
+        return _check_password_length(v)
+
+
+class UpdateProfileIn(BaseModel):
+    full_name: str
+
+    @field_validator("full_name")
+    @classmethod
+    def check_name(cls, v: str) -> str:
+        v = v.strip()
+        if not v:
+            raise ValueError("Họ tên không được để trống")
+        return v
+
+
 class UserOut(BaseModel):
     id: int
     email: str
     full_name: str
     role: str
     email_verified: bool = False
+    is_active: bool = True
+    created_at: datetime | None = None
+    last_login_at: datetime | None = None
 
     @classmethod
     def from_user(cls, user) -> "UserOut":
-        return cls(id=user.id, email=user.email, full_name=user.full_name,
-                   role=user.role.code, email_verified=user.email_verified_at is not None)
+        return cls(
+            id=user.id,
+            email=user.email,
+            full_name=user.full_name,
+            role=user.role.code,
+            email_verified=user.email_verified_at is not None,
+            is_active=bool(user.is_active),
+            created_at=user.created_at,
+            last_login_at=user.last_login_at,
+        )
 
 
 class TokenOut(BaseModel):
@@ -94,3 +128,12 @@ class TokenOut(BaseModel):
 
 class MessageOut(BaseModel):
     message: str
+
+
+class AdminStatsOut(BaseModel):
+    total_users: int
+    total_candidates: int
+    total_recruiters: int
+    total_admins: int
+    verified_users: int
+    active_users: int

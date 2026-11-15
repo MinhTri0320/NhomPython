@@ -27,10 +27,10 @@ FrontEnd/
 
 | Sprint | Nội dung | Trạng thái |
 |---|---|---|
-| 1 | Khởi tạo, CSDL, đăng ký, xác thực email, đăng nhập, refresh token, đăng xuất, quên và đặt lại mật khẩu, phân quyền | Đã làm (cần chạy thử trên máy) |
-| 2 | Hồ sơ ứng viên, CV, hồ sơ công ty, đăng và duyệt tin tuyển dụng | Chưa làm (đã có bảng) |
-| 3 | Tìm kiếm, lọc việc làm, ứng tuyển, theo dõi và xử lý hồ sơ | Chưa làm (đã có bảng) |
-| 4 | Thông báo, cảnh báo, thống kê, quản trị Admin | Chưa làm (đã có bảng, view) |
+| 1 | Khởi tạo, CSDL, CI, đăng ký, xác thực email, đăng nhập, refresh token, đăng xuất, đổi mật khẩu, quên và đặt lại mật khẩu, phân quyền RBAC | Hoàn thành 100% |
+| 2 | Hồ sơ ứng viên, CV, hồ sơ công ty, đăng và duyệt tin tuyển dụng | Sprint tiếp theo (đã có CSDL & UI) |
+| 3 | Tìm kiếm, lọc việc làm, ứng tuyển, theo dõi và xử lý hồ sơ | Sprint tiếp theo (đã có CSDL & UI) |
+| 4 | Thông báo, cảnh báo, thống kê, quản trị Admin | Sprint tiếp theo (đã có CSDL & UI) |
 | 5 | Kiểm thử, UAT, triển khai | Chưa làm |
 
 ## Cài đặt (mỗi thành viên làm trên máy mình)
@@ -67,9 +67,13 @@ Admin mặc định: `admin@example.com` / `Admin@123` (đổi trong `.env` trư
 | POST | `/api/auth/refresh` | Đổi refresh token lấy token mới | Công khai |
 | POST | `/api/auth/logout` | Đăng xuất (thu hồi refresh token) | Công khai |
 | GET | `/api/auth/me` | Thông tin người đang đăng nhập | Đã đăng nhập |
+| PUT | `/api/auth/profile` | Cập nhật thông tin tài khoản | Đã đăng nhập |
+| POST | `/api/auth/change-password` | Đổi mật khẩu cho tài khoản đang đăng nhập | Đã đăng nhập |
 | POST | `/api/auth/forgot-password` | Gửi liên kết đặt lại mật khẩu | Công khai |
 | POST | `/api/auth/reset-password` | Đặt mật khẩu mới bằng token | Công khai |
-| GET | `/api/admin/users` | Danh sách người dùng | Admin |
+| GET | `/api/admin/users` | Danh sách người dùng hệ thống | Admin |
+| PATCH | `/api/admin/users/{id}/status` | Khóa hoặc mở khóa tài khoản người dùng | Admin |
+| GET | `/api/admin/stats` | Thống kê số lượng người dùng theo vai trò | Admin |
 
 ## Email khi phát triển
 

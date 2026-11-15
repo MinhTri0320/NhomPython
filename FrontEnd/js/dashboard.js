@@ -153,12 +153,13 @@ async function renderAdminViews(tabId, container, title, subtitle, actions) {
                 <th>Họ tên</th>
                 <th>Email</th>
                 <th>Vai trò</th>
-                <th>Xác thực email</th>
+                <th>Xác thực</th>
+                <th>Trạng thái</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
             <tbody id="userTableBody">
-              <tr><td colspan="6" class="text-center" style="padding: 24px;">Đang tải dữ liệu từ máy chủ...</td></tr>
+              <tr><td colspan="7" class="text-center" style="padding: 24px;">Đang tải dữ liệu từ máy chủ...</td></tr>
             </tbody>
           </table>
         </div>
@@ -171,7 +172,7 @@ async function renderAdminViews(tabId, container, title, subtitle, actions) {
       tbody.innerHTML = "";
 
       if (users.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="text-center">Chưa có người dùng nào.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center">Chưa có người dùng nào.</td></tr>';
         return;
       }
 
@@ -179,24 +180,28 @@ async function renderAdminViews(tabId, container, title, subtitle, actions) {
         const tr = document.createElement("tr");
         const roleBadge = u.role === "ADMIN" ? "badge-danger" : (u.role === "RECRUITER" ? "badge-warning" : "badge-primary");
         const verifiedBadge = u.email_verified ? '<span class="badge badge-success"><i class="fa-solid fa-check"></i> Đã xác thực</span>' : '<span class="badge badge-warning"><i class="fa-solid fa-clock"></i> Chưa xác thực</span>';
-        
+        const activeBadge = u.is_active ? '<span class="badge badge-success">Hoạt động</span>' : '<span class="badge badge-danger">Đã khóa</span>';
+        const isSelf = currentUser && currentUser.id === u.id;
+        const lockBtn = isSelf
+          ? '<span style="font-size: 0.8rem; color: var(--text-muted);">(Chính bạn)</span>'
+          : `<button class="btn ${u.is_active ? 'btn-danger' : 'btn-success'} btn-sm" onclick="toggleUserStatus(${u.id})">
+               <i class="fa-solid ${u.is_active ? 'fa-lock' : 'fa-lock-open'}"></i> ${u.is_active ? 'Khóa' : 'Mở khóa'}
+             </button>`;
+
         tr.innerHTML = `
           <td><strong>#${u.id}</strong></td>
           <td><strong>${escapeHtml(u.full_name)}</strong></td>
           <td>${escapeHtml(u.email)}</td>
           <td><span class="badge ${roleBadge}">${ROLE_NAMES[u.role] || u.role}</span></td>
           <td>${verifiedBadge}</td>
-          <td>
-            <button class="btn btn-secondary btn-sm" onclick="alert('Chi tiết người dùng #' + ${u.id})">
-              <i class="fa-solid fa-eye"></i> Xem
-            </button>
-          </td>
+          <td>${activeBadge}</td>
+          <td>${lockBtn}</td>
         `;
         tbody.appendChild(tr);
       });
     } catch (err) {
       document.getElementById("userTableBody").innerHTML = `
-        <tr><td colspan="6" class="text-center" style="color: var(--danger)">Không thể tải dữ liệu: ${err.message}</td></tr>
+        <tr><td colspan="7" class="text-center" style="color: var(--danger)">Không thể tải dữ liệu: ${err.message}</td></tr>
       `;
     }
 
@@ -278,11 +283,28 @@ async function renderAdminViews(tabId, container, title, subtitle, actions) {
       </div>
     `;
 
-    // Cập nhật số user thực tế từ API BackEnd
-    api("/api/admin/users").then(users => {
+    // Cập nhật số liệu thống kê thực tế từ API BackEnd (/api/admin/stats)
+    api("/api/admin/stats").then(stats => {
       const el = document.getElementById("statUserCount");
-      if (el) el.textContent = users.length;
-    }).catch(() => {});
+      if (el) el.textContent = stats.total_users;
+    }).catch(() => {
+      api("/api/admin/users").then(users => {
+        const el = document.getElementById("statUserCount");
+        if (el) el.textContent = users.length;
+      }).catch(() => {});
+    });
+  }
+}
+
+// Khóa hoặc mở khóa tài khoản người dùng (Admin)
+async function toggleUserStatus(userId) {
+  if (!confirm("Bạn có chắc chắn muốn thay đổi trạng thái tài khoản #" + userId + " không?")) return;
+  try {
+    const updated = await api("/api/admin/users/" + userId + "/status", { method: "PATCH" });
+    alert("Đã cập nhật trạng thái người dùng #" + userId + " thành công!");
+    switchTab("manage-users");
+  } catch (err) {
+    alert("Lỗi: " + err.message);
   }
 }
 
