@@ -1,0 +1,94 @@
+/* ==========================================================================
+   4. AUTHENTICATION PAGES (Giao diện đăng nhập, đăng ký, quên/đặt lại mật khẩu)
+   Bao gồm: Thẻ chọn vai trò (Role Picker), Tiện ích tài khoản demo, Form đăng nhập/đăng ký
+   ========================================================================== */
+
+/* ==========================================================================
+   CHỌN VAI TRÒ ĐĂNG KÝ (ROLE PICKER CARDS)
+   ========================================================================== */
+.role-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.role-option {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: #ffffff;
+}
+
+.role-option:hover {
+  border-color: var(--primary-border);
+  background: var(--primary-light);
+}
+
+.role-option.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.role-option-icon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+
+.role-option-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.role-option-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   TIỆN ÍCH TÀI KHOẢN MẪU (DEMO ACCOUNTS HELPER)
+   Dùng để điền nhanh tài khoản Admin, Ứng viên, NTD khi chạy thử / chấm bài
+   ========================================================================== */
+.demo-helper {
+  margin-top: 24px;
+  padding: 14px;
+  background: var(--secondary-light);
+  border-radius: var(--radius-sm);
+  border: 1px dashed #cbd5e1;
+}
+
+.demo-helper-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.demo-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   LIÊN KẾT ĐIỀU HƯỚNG TRONG AUTH
+   ========================================================================== */
+.link {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.link a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.link a:hover {
+  text-decoration: underline;
+}

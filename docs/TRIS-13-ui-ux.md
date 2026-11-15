@@ -21,7 +21,13 @@ Tài liệu đặc tả kiến trúc giao diện cho dự án **Website quản l
 FrontEnd/
 ├── index.html                   (Trang chuyển hướng gốc)
 ├── css/
-│   └── style.css                (CSS Design System toàn trang)
+│   ├── style.css                (Master CSS: nạp toàn bộ các module qua @import)
+│   ├── variables.css            (Biến màu sắc, khoảng cách, font, shadow & reset)
+│   ├── components.css           (Nút bấm, thẻ, nhãn trạng thái, bảng, form, modal)
+│   ├── navbar.css               (Thanh điều hướng đầu trang, dropdown, footer)
+│   ├── auth.css                 (Giao diện đăng nhập, đăng ký, chọn vai trò, demo)
+│   ├── jobs.css                 (Hero banner, danh mục, thẻ việc làm, bộ lọc)
+│   └── dashboard.css            (Bố cục bảng điều khiển, sidebar RBAC, widget)
 ├── js/
 │   ├── api.js                   (Gọi API BackEnd, JWT & Refresh token, Auth)
 │   ├── navbar.js                (Header & điều khiển trạng thái đăng nhập)
