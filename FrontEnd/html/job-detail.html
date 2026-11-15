@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chi tiết việc làm - Hệ thống Tuyển dụng</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <span>Tuyển Dụng & Việc Làm</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="jobs.html">Việc làm</a></li>
+        <li><a href="index.html#categories">Ngành nghề</a></li>
+        <li><a href="index.html#whyUs">Về chúng tôi</a></li>
+      </ul>
+
+      <div class="nav-actions" id="navAuthActions"></div>
+      <button class="nav-toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+    
+    <!-- Breadcrumb -->
+    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+      <a href="index.html">Trang chủ</a> &gt; <a href="jobs.html">Việc làm</a> &gt; <span id="breadTitle">Chi tiết</span>
+    </div>
+
+    <!-- Job Header Card -->
+    <div class="card" style="padding: 30px; margin-bottom: 24px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 20px; align-items: center;">
+          <div class="company-logo" style="width: 70px; height: 70px; font-size: 1.8rem;" id="companyLogo">F</div>
+          <div>
+            <h1 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 6px;" id="jobTitle">Lập trình viên Backend Python (FastAPI)</h1>
+            <div style="font-size: 1.05rem; color: var(--text-muted); font-weight: 500;" id="jobCompany">FPT Software</div>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-secondary" onclick="alert('Đã lưu việc làm vào danh sách quan tâm!')">
+            <i class="fa-regular fa-bookmark"></i> Lưu tin
+          </button>
+          <button class="btn btn-primary btn-lg" onclick="openApplyModal()">
+            <i class="fa-solid fa-paper-plane"></i> Ứng tuyển ngay
+          </button>
+        </div>
+      </div>
+
+      <div class="job-details" style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.95rem;">
+        <span class="job-detail-item job-salary" style="font-size: 1.1rem;" id="jobSalary">
+          <i class="fa-solid fa-money-bill-wave"></i> 18 - 30 triệu VNĐ
+        </span>
+        <span class="job-detail-item" id="jobLocation">
+          <i class="fa-solid fa-location-dot"></i> Hà Nội
+        </span>
+        <span class="job-detail-item" id="jobType">
+          <i class="fa-solid fa-briefcase"></i> Toàn thời gian
+        </span>
+        <span class="job-detail-item" id="jobDeadline">
+          <i class="fa-regular fa-clock"></i> Hạn nộp: 30/11/2026
+        </span>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+      
+      <!-- Nội dung chi tiết công việc -->
+      <div>
+        <div class="card">
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 14px;">Mô tả công việc</h2>
+          <div style="line-height: 1.7; font-size: 0.95rem; color: var(--secondary);" id="jobDesc">
+            <p>• Tham gia phát triển hệ thống backend cho các dự án quy mô lớn sử dụng Python và FastAPI.</p>
+            <p>• Thiết kế cấu trúc cơ sở dữ liệu quan hệ MySQL, tối ưu hóa các câu truy vấn phức tạp và hiệu năng index.</p>
+            <p>• Xây dựng và bảo trì các RESTful API bảo mật cao với cơ chế JWT (JSON Web Tokens) và phân quyền vai trò (RBAC).</p>
+            <p>• Phối hợp chặt chẽ với đội ngũ Frontend để tích hợp các tính năng người dùng.</p>
+          </div>
+
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-top: 28px; margin-bottom: 14px;">Yêu cầu ứng viên</h2>
+          <div style="line-height: 1.7; font-size: 0.95rem; color: var(--secondary);">
+            <p>• Có từ 1-2 năm kinh nghiệm làm việc với ngôn ngữ Python và các framework web (FastAPI, Flask hoặc Django).</p>
+            <p>• Nắm vững kiến thức về kiến trúc RESTful API, ORM (SQLAlchemy) và cơ sở dữ liệu MySQL.</p>
+            <p>• Hiểu biết về quy trình làm việc Git, GitHub, và phương pháp phát triển phần mềm Agile/Scrum.</p>
+            <p>• Tinh thần trách nhiệm cao, chủ động trong công việc và kỹ năng giải quyết vấn đề tốt.</p>
+          </div>
+
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-top: 28px; margin-bottom: 14px;">Quyền lợi được hưởng</h2>
+          <div style="line-height: 1.7; font-size: 0.95rem; color: var(--secondary);">
+            <p>• Mức lương cạnh tranh theo năng lực, xét tăng lương định kỳ hàng năm.</p>
+            <p>• Thưởng các dịp lễ tết và thưởng tháng lương thứ 13.</p>
+            <p>• Chế độ bảo hiểm đầy đủ theo quy định của Luật lao động Việt Nam.</p>
+            <p>• Môi trường làm việc trẻ trung, năng động, nhiều cơ hội học hỏi và thăng tiến sự nghiệp.</p>
+          </div>
+
+          <div style="margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border);">
+            <button class="btn btn-primary btn-block btn-lg" onclick="openApplyModal()">
+              <i class="fa-solid fa-paper-plane"></i> Nộp hồ sơ ứng tuyển vị trí này
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thông tin công ty & việc làm liên quan -->
+      <div>
+        <div class="card">
+          <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px;">Về nhà tuyển dụng</h3>
+          <div class="d-flex align-center gap-3" style="margin-bottom: 14px;">
+            <div class="company-logo" style="width: 48px; height: 48px;">F</div>
+            <div>
+              <div style="font-weight: 600;" id="sideCompany">FPT Software</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Công ty Công nghệ Hàng đầu</div>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--secondary); line-height: 1.6; margin-bottom: 16px;">
+            Tập đoàn công nghệ và phần mềm hàng đầu tại Việt Nam, cung cấp dịch vụ chuyển đổi số và công nghệ toàn cầu.
+          </p>
+          <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+            <div><i class="fa-solid fa-location-dot" style="width: 20px; color: var(--primary)"></i> Cầu Giấy, Hà Nội</div>
+            <div><i class="fa-solid fa-globe" style="width: 20px; color: var(--primary)"></i> https://fptsoftware.com</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL: NỘP HỒ SƠ ỨNG TUYỂN -->
+  <div class="modal-overlay" id="applyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="card-title"><i class="fa-solid fa-paper-plane"></i> Nộp hồ sơ ứng tuyển</h3>
+        <button class="modal-close" onclick="closeApplyModal()">&times;</button>
+      </div>
+      <form id="applyForm">
+        <div class="form-group">
+          <label class="form-label">Họ và tên của bạn</label>
+          <input type="text" class="form-control" id="applyName" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Địa chỉ Email</label>
+          <input type="email" class="form-control" id="applyEmail" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Số điện thoại liên hệ</label>
+          <input type="tel" class="form-control" id="applyPhone" placeholder="0987 654 321" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chọn hồ sơ CV đính kèm</label>
+          <select class="form-select" id="applyCv">
+            <option value="CV_Chuan_2026.pdf">CV_Chuan_2026.pdf (Mặc định)</option>
+            <option value="upload">Tải lên file CV mới từ máy tính (.pdf, .docx)...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lời nhắn gửi đến Nhà tuyển dụng (Cover letter)</label>
+          <textarea class="form-control" rows="3" placeholder="Giới thiệu ngắn gọn lý do bạn phù hợp với vị trí này..."></textarea>
+        </div>
+        <div class="d-flex justify-between" style="margin-top: 24px;">
+          <button type="button" class="btn btn-secondary" onclick="closeApplyModal()">Đóng</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Xác nhận ứng tuyển</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      &copy; 2026 Nhóm Python - Hệ thống Quản lý Tuyển dụng & Theo dõi Hồ sơ ứng tuyển.
+    </div>
+  </footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script>
+    function openApplyModal() {
+      const user = getUser();
+      if (user) {
+        document.getElementById("applyName").value = user.full_name || "";
+        document.getElementById("applyEmail").value = user.email || "";
+      }
+      document.getElementById("applyModal").classList.add("show");
+    }
+
+    function closeApplyModal() {
+      document.getElementById("applyModal").classList.remove("show");
+    }
+
+    document.getElementById("applyForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      closeApplyModal();
+      alert("Nộp hồ sơ ứng tuyển thành công! Nhà tuyển dụng sẽ xem xét và phản hồi qua email của bạn.");
+    });
+  </script>
+</body>
+</html>

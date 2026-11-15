@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tìm kiếm việc làm - Hệ thống Tuyển dụng</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <span>Tuyển Dụng & Việc Làm</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="jobs.html" class="active">Việc làm</a></li>
+        <li><a href="index.html#categories">Ngành nghề</a></li>
+        <li><a href="index.html#whyUs">Về chúng tôi</a></li>
+      </ul>
+
+      <div class="nav-actions" id="navAuthActions"></div>
+      <button class="nav-toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <!-- Thanh tìm kiếm việc làm đầu trang -->
+  <div style="background: #ffffff; border-bottom: 1px solid var(--border); padding: 24px 0;">
+    <div class="container">
+      <form id="searchJobsForm" style="display: grid; grid-template-columns: 2fr 1.2fr 1.2fr auto; gap: 12px; align-items: center;">
+        <div class="input-icon-wrap">
+          <i class="fa-solid fa-magnifying-glass prefix-icon"></i>
+          <input type="text" id="keyword" class="form-control" placeholder="Từ khóa công việc, vị trí hoặc kỹ năng...">
+        </div>
+        <select id="category" class="form-select">
+          <option value="">Tất cả ngành nghề</option>
+          <option value="IT">Công nghệ thông tin</option>
+          <option value="SALES">Kinh doanh / Bán hàng</option>
+          <option value="MARKETING">Marketing / PR</option>
+          <option value="FINANCE">Tài chính / Kế toán</option>
+          <option value="HR">Nhân sự / Hành chính</option>
+        </select>
+        <select id="location" class="form-select">
+          <option value="">Tất cả địa điểm</option>
+          <option value="Hà Nội">Hà Nội</option>
+          <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+          <option value="Đà Nẵng">Đà Nẵng</option>
+          <option value="Remote">Từ xa (Remote)</option>
+        </select>
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-filter"></i> Lọc việc làm
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Nội dung danh sách việc làm -->
+  <div class="container" style="padding-top: 30px; padding-bottom: 50px;">
+    <div style="display: grid; grid-template-columns: 260px 1fr; gap: 24px;">
+      
+      <!-- Bộ lọc bên trái -->
+      <aside>
+        <div class="card" style="padding: 20px;">
+          <h3 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+            <i class="fa-solid fa-sliders"></i> Bộ lọc chi tiết
+          </h3>
+
+          <div class="form-group">
+            <label class="form-label" style="font-size: 0.85rem;">Mức lương mong muốn</label>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
+              <label><input type="radio" name="salaryRange" value="" checked> Tất cả</label>
+              <label><input type="radio" name="salaryRange" value="under10"> Dưới 10 triệu</label>
+              <label><input type="radio" name="salaryRange" value="10to20"> 10 - 20 triệu</label>
+              <label><input type="radio" name="salaryRange" value="20to30"> 20 - 30 triệu</label>
+              <label><input type="radio" name="salaryRange" value="above30"> Trên 30 triệu</label>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 18px;">
+            <label class="form-label" style="font-size: 0.85rem;">Hình thức làm việc</label>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
+              <label><input type="checkbox" checked> Toàn thời gian (Full-time)</label>
+              <label><input type="checkbox" checked> Bán thời gian (Part-time)</label>
+              <label><input type="checkbox" checked> Thực tập (Internship)</label>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-secondary btn-block btn-sm" id="resetFilterBtn">
+            <i class="fa-solid fa-rotate-left"></i> Đặt lại bộ lọc
+          </button>
+        </div>
+      </aside>
+
+      <!-- Danh sách việc làm -->
+      <main>
+        <div class="d-flex justify-between align-center" style="margin-bottom: 18px;">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 700;">Danh sách việc làm</h2>
+            <div style="font-size: 0.85rem; color: var(--text-muted);" id="jobCountText">Tìm thấy 6 việc làm phù hợp</div>
+          </div>
+          <div>
+            <select class="form-select" style="padding: 6px 12px; font-size: 0.85rem;" id="sortSelect">
+              <option value="newest">Mới nhất</option>
+              <option value="salaryDesc">Lương cao nhất</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="job-grid" id="jobsContainer" style="grid-template-columns: 1fr;">
+          <!-- Render danh sách qua jobs.js -->
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      &copy; 2026 Nhóm Python - Hệ thống Quản lý Tuyển dụng & Theo dõi Hồ sơ ứng tuyển.
+    </div>
+  </footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/jobs.js"></script>
+</body>
+</html>

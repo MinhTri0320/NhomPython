@@ -3,25 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Đăng nhập</title>
+  <title>Đăng nhập - Hệ thống Tuyển dụng</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-  <div class="container">
-    <div class="card">
-      <h1>Đăng nhập</h1>
+<body style="background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);">
+
+  <!-- Header đơn giản -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <span>Tuyển Dụng & Việc Làm</span>
+      </a>
+      <div class="nav-actions">
+        <span style="font-size: 0.9rem; color: var(--text-muted);">Chưa có tài khoản?</span>
+        <a href="register.html" class="btn btn-outline btn-sm">Đăng ký ngay</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container-sm">
+    <div class="card" style="box-shadow: var(--shadow-lg); border-radius: var(--radius-lg); padding: 32px;">
+      
+      <div class="text-center" style="margin-bottom: 24px;">
+        <h1 style="font-size: 1.7rem; font-weight: 700; color: var(--text-main);">Chào mừng bạn trở lại!</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 6px;">Đăng nhập để tiếp cận hàng ngàn cơ hội việc làm & ứng viên tiềm năng</p>
+      </div>
+
+      <div id="msg" class="msg"></div>
+
       <form id="loginForm">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" required autocomplete="username">
-        <label for="password">Mật khẩu</label>
-        <input id="password" name="password" type="password" required autocomplete="current-password">
-        <button type="submit">Đăng nhập</button>
-        <div id="msg" class="msg"></div>
+        <div class="form-group">
+          <label class="form-label" for="email">Địa chỉ Email</label>
+          <div class="input-icon-wrap">
+            <i class="fa-regular fa-envelope prefix-icon"></i>
+            <input id="email" name="email" type="email" class="form-control" placeholder="name@example.com" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="d-flex justify-between align-center" style="margin-bottom: 6px;">
+            <label class="form-label" for="password" style="margin-bottom: 0;">Mật khẩu</label>
+            <a href="forgot-password.html" style="font-size: 0.85rem;">Quên mật khẩu?</a>
+          </div>
+          <div class="input-icon-wrap">
+            <i class="fa-solid fa-lock prefix-icon"></i>
+            <input id="password" name="password" type="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="password-toggle" id="togglePassword" title="Hiện/ẩn mật khẩu">
+              <i class="fa-regular fa-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="d-flex align-center justify-between" style="margin-bottom: 20px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; font-size: 0.85rem; cursor: pointer; margin: 0;">
+            <input type="checkbox" id="rememberMe" style="width: auto;">
+            <span>Ghi nhớ đăng nhập</span>
+          </label>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn btn-primary btn-block btn-lg">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng nhập
+        </button>
       </form>
-      <div class="link"><a href="forgot-password.html">Quên mật khẩu?</a></div>
-      <div class="link">Chưa có tài khoản? <a href="register.html">Đăng ký</a></div>
+
+      <!-- Tiện ích chọn tài khoản mẫu để test đồ án -->
+      <div class="demo-helper">
+        <div class="demo-helper-title"><i class="fa-solid fa-vial"></i> Tài khoản thử nghiệm nhanh (Sprint 1):</div>
+        <div class="demo-buttons">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnDemoAdmin" title="Tài khoản Admin tạo tự động từ setup_db.py">
+            <i class="fa-solid fa-shield-halved"></i> Admin
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnDemoCandidate">
+            <i class="fa-solid fa-user-graduate"></i> Ứng viên
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnDemoRecruiter">
+            <i class="fa-solid fa-building"></i> Nhà tuyển dụng
+          </button>
+        </div>
+      </div>
+
+      <div class="link mt-4 text-center" style="font-size: 0.9rem;">
+        Bạn là người mới? <a href="register.html" style="font-weight: 600;">Tạo tài khoản mới</a>
+      </div>
+
+      <div class="text-center mt-3">
+        <a href="index.html" style="font-size: 0.85rem; color: var(--text-muted);">
+          <i class="fa-solid fa-arrow-left"></i> Quay lại trang chủ
+        </a>
+      </div>
+
     </div>
   </div>
+
   <script src="../js/api.js"></script>
   <script src="../js/login.js"></script>
 </body>
